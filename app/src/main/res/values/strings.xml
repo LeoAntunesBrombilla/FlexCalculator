@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FlexCalculator</string>
+    <string name="consumptionOne">Consumo Combustivel 1:</string>
+    <string name="consumptionTwo">Consumo Combustivel 2:</string>
+    <string name="result">Resultado</string>
+    <string name="value_gas_two">Valor litro combustivel 2:</string>
+    <string name="value_gas_one">Valor litro combustivel 1:</string>
+    <string name="Search">Buscar</string>
+</resources>
