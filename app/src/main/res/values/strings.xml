@@ -6,4 +6,5 @@
     <string name="value_gas_two">Valor litro combustivel 2:</string>
     <string name="value_gas_one">Valor litro combustivel 1:</string>
     <string name="Search">Buscar</string>
+    <string name="select_fuel_type">Selecione o combustivel</string>
 </resources>
