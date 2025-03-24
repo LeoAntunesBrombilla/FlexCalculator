@@ -51,6 +51,7 @@
         android:ems="10"
         android:hint=""
         android:importantForAutofill="no"
+        android:inputType="numberDecimal"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
@@ -89,6 +90,7 @@
         android:background="@drawable/edit_text_background"
         android:ems="10"
         android:importantForAutofill="no"
+        android:inputType="numberDecimal"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/editTextConsumption1" />
@@ -159,7 +161,6 @@
         app:layout_constraintStart_toEndOf="@+id/tvTextPrice2"
         app:layout_constraintTop_toBottomOf="@+id/etGasPrice1" />
 
-    <!-- Section 3: Results -->
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="wrap_content"

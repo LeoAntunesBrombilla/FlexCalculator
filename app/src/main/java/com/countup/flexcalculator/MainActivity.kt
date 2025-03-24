@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         result -> if(result.resultCode == RESULT_OK) {
             val selectedFuel = result.data?.getStringExtra("SELECTED_FUEL")
-            binding.editTextConsumption1.setText(selectedFuel)
+            binding.textViewConsumption1.text = selectedFuel
         }
     }
 
@@ -30,7 +30,18 @@ class MainActivity : AppCompatActivity() {
     ) {
             result -> if(result.resultCode == RESULT_OK) {
             val selectedFuel = result.data?.getStringExtra("SELECTED_FUEL")
-            binding.editTextConsumption.setText(selectedFuel)
+            binding.textViewConsumption.text = selectedFuel
+        }
+    }
+
+    private fun fuelCalculator(quantityFuel1: Double, priceFuel1: Double, quantityFuel2: Double, priceFuel2: Double): CharSequence? {
+        val result1 = quantityFuel1 * priceFuel1
+        val result2 = quantityFuel2 * priceFuel2
+
+        return if(result1 > result2) {
+            binding.textViewConsumption1.text
+        } else {
+            binding.textViewConsumption.text
         }
     }
 
