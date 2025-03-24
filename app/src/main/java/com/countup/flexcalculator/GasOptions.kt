@@ -16,22 +16,30 @@ class GasOptions : AppCompatActivity() {
         binding = ActivityGasOptionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Pego do array de valores as options
         val fuelTypes = resources.getStringArray(R.array.fuel_types)
 
+
+        //Esse adapter vai retornar uma view, pra cada elemento na lista
         val adapter = ArrayAdapter(
-            this, android.R.layout.simple_list_item_1,
+            this,
+            android.R.layout.simple_list_item_1,
             fuelTypes
         )
 
         binding.listViewFuelOptions.adapter = adapter
 
+        //aqui simplesmente pegamos a position e o valor e quando selecionamos
+        //ele volta a tela
         binding.listViewFuelOptions.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
             val selectedFuel = fuelTypes[position]
 
             val resultIntent = Intent()
+            //adiciona o valor
             resultIntent.putExtra("SELECTED_FUEL", selectedFuel)
             setResult(RESULT_OK, resultIntent)
 
+            //fecha a activity
             finish()
         }
     }

@@ -51,7 +51,6 @@
         android:ems="10"
         android:hint=""
         android:importantForAutofill="no"
-        android:inputType="numberDecimal"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
@@ -90,7 +89,6 @@
         android:background="@drawable/edit_text_background"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="numberDecimal"
         android:padding="12dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/editTextConsumption1" />
