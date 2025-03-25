@@ -2,6 +2,8 @@ package com.countup.flexcalculator
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
     ) {
         result -> if(result.resultCode == RESULT_OK) {
             val selectedFuel = result.data?.getStringExtra("SELECTED_FUEL")
-            binding.textViewConsumption1.text = selectedFuel
+            binding.textViewConsumption1.text = "Consumo de $selectedFuel:"
+            binding.tvGasPrice1.text = "Valor litro $selectedFuel:"
         }
     }
 
@@ -30,7 +33,8 @@ class MainActivity : AppCompatActivity() {
     ) {
             result -> if(result.resultCode == RESULT_OK) {
             val selectedFuel = result.data?.getStringExtra("SELECTED_FUEL")
-            binding.textViewConsumption.text = selectedFuel
+            binding.textViewConsumption.text = "Consumo de $selectedFuel:"
+            binding.tvTextPrice2.text = "Valor litro $selectedFuel:"
         }
     }
 
@@ -38,10 +42,10 @@ class MainActivity : AppCompatActivity() {
         val result1 = quantityFuel1 * priceFuel1
         val result2 = quantityFuel2 * priceFuel2
 
-        return if(result1 > result2) {
-            binding.textViewConsumption1.text
+        return if(result1 < result2) {
+            return binding.textViewConsumption1.text.toString()
         } else {
-            binding.textViewConsumption.text
+            return binding.textViewConsumption.text.toString()
         }
     }
 
@@ -59,7 +63,54 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, GasOptions::class.java)
             fuelLauncher2.launch(intent)
         }
+
+        setupWatchers()
  }
+
+    private fun setupWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                checkAllFieldsAndCalculate()
+            }
+        }
+
+        binding.textViewConsumption1.addTextChangedListener(textWatcher)
+        binding.textViewConsumption.addTextChangedListener(textWatcher)
+        binding.editTextConsumption1.addTextChangedListener(textWatcher)
+        binding.editTextConsumption.addTextChangedListener(textWatcher)
+        binding.etGasPrice1.addTextChangedListener(textWatcher)
+        binding.etGasPrice2.addTextChangedListener(textWatcher)
+    }
+
+    private fun checkAllFieldsAndCalculate() {
+        val quantityFuel1 = binding.editTextConsumption1.text.toString()
+        val priceFuel1 = binding.editTextConsumption1.text.toString()
+        val quantityFuel2 = binding.editTextConsumption.text.toString()
+        val priceFuel2 = binding.editTextConsumption.text.toString()
+        val gasPrice1 = binding.etGasPrice1.text.toString()
+        val gasPrice2 = binding.etGasPrice2.text.toString()
+
+        if(quantityFuel1.isNotEmpty() && priceFuel1.isNotEmpty()
+            && quantityFuel2.isNotEmpty() && priceFuel2.isNotEmpty()
+            && gasPrice1.isNotEmpty() && gasPrice2.isNotEmpty()
+        ) {
+
+            val quantity1 = quantityFuel1.toDoubleOrNull() ?: return
+            val priceText1 = priceFuel1.toDoubleOrNull() ?: return
+            val quantity2 = quantityFuel2.toDoubleOrNull() ?: return
+            val priceText2 = priceFuel2.toDoubleOrNull() ?: return
+            val gasPrice1 = gasPrice1.toDoubleOrNull() ?: return
+            val gasPrice2 = gasPrice2.toDoubleOrNull() ?: return
+
+            val result = fuelCalculator(
+                quantity1, gasPrice1, quantity2, gasPrice2
+            )
+
+            binding.etResult.setText(result)
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
