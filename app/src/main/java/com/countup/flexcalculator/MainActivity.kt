@@ -38,11 +38,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fuelCalculator(quantityFuel1: Double, priceFuel1: Double, quantityFuel2: Double, priceFuel2: Double): CharSequence? {
-        val result1 = quantityFuel1 * priceFuel1
-        val result2 = quantityFuel2 * priceFuel2
 
-        return if(result1 < result2) {
+
+    private fun fuelResultBinding(quantityFuel1: Double, priceFuel1: Double, quantityFuel2: Double, priceFuel2: Double): CharSequence? {
+        val cheaperFuel = fuelCalculator(quantityFuel1, priceFuel1, quantityFuel2, priceFuel2)
+        return if(cheaperFuel == 1) {
             return binding.textViewConsumption1.text.toString()
         } else {
             return binding.textViewConsumption.text.toString()
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             val gasPrice1 = gasPrice1.toDoubleOrNull() ?: return
             val gasPrice2 = gasPrice2.toDoubleOrNull() ?: return
 
-            val result = fuelCalculator(
+            val result = fuelResultBinding(
                 quantity1, gasPrice1, quantity2, gasPrice2
             )
 
