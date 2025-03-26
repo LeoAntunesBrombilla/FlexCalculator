@@ -40,12 +40,32 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun fuelResultBinding(quantityFuel1: Double, priceFuel1: Double, quantityFuel2: Double, priceFuel2: Double): CharSequence? {
+    private fun fuelResultBinding(quantityFuel1: Double, priceFuel1: Double, quantityFuel2: Double, priceFuel2: Double): CharSequence {
         val cheaperFuel = fuelCalculator(quantityFuel1, priceFuel1, quantityFuel2, priceFuel2)
-        return if(cheaperFuel == 1) {
-            return binding.textViewConsumption1.text.toString()
+
+        return when (cheaperFuel) {
+            1 -> {
+                val fuelText = binding.textViewConsumption1.text.toString()
+                val fuelType = extractFuelType(fuelText)
+                "Melhor usar $fuelType"
+            }
+            2 -> {
+                val fuelText = binding.textViewConsumption.text.toString()
+                val fuelType = extractFuelType(fuelText)
+                "Melhor usar $fuelType"
+            }
+            else -> "Qualquer combustível vale a pena!"
+        }
+    }
+
+    private fun extractFuelType(text: String): String {
+        val prefix = "Consumo de "
+        val suffix = ":"
+
+        return if (text.startsWith(prefix) && text.endsWith(suffix)) {
+            text.substring(prefix.length, text.length - suffix.length)
         } else {
-            return binding.textViewConsumption.text.toString()
+            text
         }
     }
 
